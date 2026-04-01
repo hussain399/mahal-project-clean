@@ -1,0 +1,66 @@
+.review_container {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.review_card {
+  width: 800px;
+  background: white;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.review_card h2 {
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.review_section {
+  margin-bottom: 25px;
+  padding: 15px;
+  background: #fafafa;
+  border-radius: 10px;
+}
+
+.review_section h4 {
+  margin-bottom: 10px;
+}
+
+.review_section p {
+  margin: 6px 0;
+}
+
+.review_actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+.approve_btn {
+  background: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.reject_btn {
+  background: #dc3545;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.modify_btn {
+  background: lightskyblue;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}

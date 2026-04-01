@@ -1,0 +1,61 @@
+.product_img {
+  position: relative;
+  width: 100%;
+  height: 250px;           /* 🔥 Fix same height */
+  overflow: hidden;        /* 🔥 Prevent overflow */
+  background: #f8f8f8;     /* Optional clean background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product_img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       /* 🔥 Makes all images uniform */
+}
+
+.product_img {
+  position: relative;
+}
+
+.offer_badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ff4d4d;
+  color: white;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  z-index: 2;
+}
+
+.old_price {
+  text-decoration: line-through;
+  color: #888;
+  margin-right: 8px;
+}
+
+.new_price {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.price {
+  font-weight: bold;
+}
+
+.image_offer_badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ff3d00;
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+  z-index: 10;
+}

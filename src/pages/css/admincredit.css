@@ -1,0 +1,293 @@
+.modal_show {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal_box {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 1000px;        /* ⬅️ restore wide layout */
+  max-width: 96%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.stat_card {
+  padding: 20px;
+  border-radius: 12px;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.stat_card.blue { background: linear-gradient(45deg,#2196F3,#21CBF3); }
+.stat_card.green { background: linear-gradient(45deg,#4CAF50,#8BC34A); }
+.stat_card.red { background: linear-gradient(45deg,#F44336,#FF7043); }
+.stat_card.purple { background: linear-gradient(45deg,#673AB7,#9C27B0); }
+
+.credit_summary_box {
+  display: flex;
+  justify-content: space-between;
+  background: #f5f7fa;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.table-success {
+  background-color: #e6f7ec !important;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.dashboard_page h2 {
+  font-weight: 600;
+}
+
+.settlement-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  background: #fff;
+}
+
+.settlement-card.selected {
+  border: 2px solid #28a745;
+  background: #f3fff6;
+}
+
+.settlement-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.settlement-header .amount {
+  font-weight: bold;
+  font-size: 18px;
+  color: #28a745;
+}
+
+.items-table {
+  margin-top: 10px;
+}
+
+.dashboard_page h2 {
+  font-weight: 600;
+}
+
+.credit-page {
+  padding: 20px;
+}
+
+.credit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.restaurant-badge {
+  background: #28a745;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.filter-card {
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.orders-card {
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.summary-card {
+  padding: 20px;
+  border-radius: 10px;
+  position: sticky;
+  top: 20px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.order-row {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.order-row.selected {
+  border: 2px solid #28a745;
+  background: #f4fff7;
+}
+
+.order-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.order-info {
+  flex: 1;
+}
+
+.order-id {
+  font-weight: 600;
+}
+
+.supplier {
+  font-size: 14px;
+  color: #555;
+}
+
+.contact {
+  font-size: 13px;
+  color: #888;
+}
+
+.order-amount {
+  font-weight: bold;
+  color: #28a745;
+}
+
+.items-section {
+  margin-top: 10px;
+}
+
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.summary-total {
+  font-size: 28px;
+  font-weight: bold;
+  color: #28a745;
+  margin-top: 10px;
+}
+
+.section_title {
+  font-weight: 600;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+}
+
+.info_row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.credit_box {
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.modal_large {
+  width: 1000px;
+  max-width: 96%;
+}
+
+.modal_title {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.info_card {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.section_heading {
+  font-weight: 600;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+.info_row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.credit_summary_section {
+  margin-top: 20px;
+}
+
+.credit_grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.credit_box {
+  background: #f8fafc;
+  padding: 18px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.items_section {
+  margin-top: 20px;
+}
+
+.modal_footer {
+  text-align: right;
+  margin-top: 15px;
+}
+
+.info_card_compact {
+  background: #f8fafc;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.credit_row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.credit_small {
+  flex: 1;
+  background: #f1f3f5;
+  padding: 14px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+}

@@ -1,0 +1,31 @@
+.filter_bar.modern {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+/* Search takes more space */
+.search_input {
+  flex: 2;
+  min-width: 250px;
+}
+
+/* Date inputs smaller */
+.date_input {
+  flex: 1;
+  min-width: 160px;
+}
+
+/* Common input styling */
+.filter_bar.modern input {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  height: 40px;
+}
+.date_group {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+}

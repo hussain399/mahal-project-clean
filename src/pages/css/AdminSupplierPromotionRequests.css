@@ -1,0 +1,49 @@
+.request_card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-radius: 12px;
+  background: white;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  transition: 0.2s ease;
+}
+
+.request_card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.request_card h4 {
+  margin: 0;
+}
+
+.request_card p {
+  margin: 4px 0;
+  color: #666;
+}
+
+.review_btn {
+  background: #ff7a00;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.review_btn:hover {
+  background: #e86f00;
+}
+
+.notification_popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 280px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  padding: 15px;
+}

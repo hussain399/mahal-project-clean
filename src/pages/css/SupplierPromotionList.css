@@ -1,0 +1,46 @@
+.promo-list-page {
+  padding: 30px;
+}
+
+.promo-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.promo-table th {
+  background: #f6f6f6;
+  padding: 12px;
+  text-align: left;
+}
+
+.promo-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.view-btn {
+  background: #ff7a00;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.status {
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.status.INVITED {
+  background: #ffe7b3;
+}
+
+.status.ACCEPTED {
+  background: #d4f5d2;
+}
+
+.status.REJECTED {
+  background: #ffd6d6;
+}

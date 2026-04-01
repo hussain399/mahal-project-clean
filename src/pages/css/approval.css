@@ -1,0 +1,454 @@
+/* ------------------------------------------------------
+GLOBAL VARIABLES & BASE STYLES
+------------------------------------------------------ */
+
+:root {
+/* Theme Colors */
+--primary: #ff8c00; /* Orange */
+--primary-dark: #cc7000;
+--secondary: #2b7a78; /* Teal/Blue-Green for Review/Primary Action */
+--secondary-dark: #1b5351;
+--danger: #d63636; /* Red for Reject */
+--danger-dark: #b42a2a;
+--neutral: #6c757d; /* Gray for Secondary/Cancel */
+--neutral-dark: #495057;
+
+/* Layout */
+--background: #f4f6f9;
+--card-bg: #ffffff;
+--border: #e0e0e0;
+--shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+
+/* Typography */
+--text-dark: #2c3e50;
+--text-light: #5a6a7a;
+
+/* Spacing & Effects */
+--radius: 8px;
+--transition: all 0.25s ease;
+--gap: 20px;
+}
+
+body {
+background-color: var(--background);
+color: var(--text-dark);
+ font-family: "Ubuntu", sans-serif;
+ 
+}
+
+/* ------------------------------------------------------
+MAIN CONTAINERS & LAYOUT
+------------------------------------------------------ */
+
+.form-container {
+max-width: 100%;
+margin: 0 auto;
+padding: var(--gap);
+}
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        /* max-width: 100% !important; */
+    }
+.form-card {
+background: #e7daba;
+border: 1px solid var(--border);
+border-radius: var(--radius);
+box-shadow: var(--shadow);
+padding: 30px;
+margin-top: 25px;
+}
+
+h2 {
+color: var(--primary);
+margin-bottom: var(--gap);
+text-align: center;
+}
+
+h3 {
+color: var(--text-dark);
+margin-top: 0;
+margin-bottom: 15px;
+/* border-bottom: 2px solid var(--border); */
+padding-bottom: 5px;
+}
+
+/* Message Styles */
+.success, .error {
+padding: 12px;
+border-radius: var(--radius);
+margin-bottom: var(--gap);
+font-weight: 600;
+text-align: center;
+}
+.success {
+background-color: #d4edda;
+color: #155724;
+border: 1px solid #c3e6cb;
+}
+.error {
+background-color: #f8d7da;
+color: #721c24;
+border: 1px solid #f5c6cb;
+}
+
+
+/* ------------------------------------------------------
+TABLE STYLES
+------------------------------------------------------ */
+table {
+width: 100%;
+border-collapse: collapse;
+ 
+border-radius: var(--radius);
+overflow: hidden; /* Ensures rounded corners cut off table border */
+}
+
+th, td {
+border: 1px solid var(--border);
+padding: 12px 15px;
+text-align: left;
+}
+
+th {
+background-color: #f0f3f6;
+color: var(--text-dark);
+font-weight: 700;
+}
+
+tr:nth-child(even) {
+background-color: #f9f9f9;
+}
+
+
+/* ------------------------------------------------------
+BUTTONS — Consistent size, Centered, Colourful Theme
+------------------------------------------------------ */
+button {
+/* Resetting default button styles */
+appearance: none;
+background: none;
+border: none;
+}
+
+/* button,
+.btn-primary,
+.btn-secondary,
+.btn-review,
+.btn-approve,
+.btn-reject {
+
+color: #fff !important;
+border: none;
+padding: 12px 24px;
+font-size: 15px;
+font-weight: 600;
+border-radius: var(--radius);
+cursor: pointer;
+transition: var(--transition);
+display: inline-flex;
+justify-content: center;
+align-items: center;
+min-width: 160px; 
+} */
+
+ 
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-review:hover,
+.btn-approve:hover,
+.btn-reject:hover {
+transform: translateY(-2px);
+box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Primary/Action Button (Search, Generic) */
+.btn-primary {
+background: var(--primary);
+}
+
+.btn-primary:hover {
+background: var(--primary-dark);
+box-shadow: 0px 6px 16px rgba(255, 106, 0, 0.35);
+}
+
+/* Review Button (Used in Table) */
+.btn-review {
+background: var(--secondary);
+min-width: 100px; /* Smaller width for table action */
+}
+
+.btn-review:hover {
+background: var(--secondary-dark);
+}
+
+/* Approve Button */
+.btn-approve {
+background: #28a745; /* Green */
+}
+
+.btn-approve:hover {
+background: #000000;
+  color: #ffffff;
+}
+
+/* Secondary/Cancel Button (Reset, Cancel) */
+.btn-secondary {
+background: #000000;
+  color: #ffffff;
+}
+
+.btn-secondary:hover {
+background:  #ff7a00;
+  color: #fff;
+}
+
+/* Danger / Reject Button */
+.btn-reject {
+background: var(--danger);
+}
+
+.btn-reject:hover {
+background: var(--danger-dark);
+}
+
+/* Back Button - Positioned Left */
+.back-btn {
+display: inline-block;
+margin-bottom: var(--gap);
+cursor: pointer;
+color: var(--primary);
+font-size: 16px;
+font-weight: 600;
+transition: var(--transition);
+}
+.back-btn:hover {
+color: var(--primary-dark);
+transform: translateX(-4px);
+}
+
+/* Center ALL action buttons */
+.action-center,
+.action-container {
+display: flex;
+justify-content: center;
+gap: var(--gap);
+margin-top: 30px;
+}
+
+/* ------------------------------------------------------
+SEARCH BAR
+------------------------------------------------------ */
+.search-bar {
+display: flex;
+/* changed to wrap, as buttons will now be in .search-actions */
+flex-wrap: wrap;
+gap: 10px;
+align-items: center;
+padding: 15px;
+background:rgb(252, 220, 194);
+border: 1px solid var(--border);
+border-radius: var(--radius);
+margin-bottom: var(--gap);
+}
+
+.search-bar select,
+.search-bar input {
+padding: 10px;
+border: 1px solid var(--border);
+border-radius: var(--radius);
+font-size: 14px;
+/* Inputs/Selects take available space */
+flex-grow: 1;
+/* Ensures they are all the same width */
+min-width: 150px;
+}
+
+/* NEW CLASS: Container for Search/Reset buttons, centered below inputs */
+.search-actions {
+width: 100%; /* Take full width of the .search-bar container */
+display: flex;
+justify-content: center; /* Center buttons horizontally */
+gap: var(--gap);
+margin-top: 15px; /* Spacing between form fields and buttons */
+}
+
+/* ------------------------------------------------------
+REJECTION BOX
+------------------------------------------------------ */
+.reject-box {
+background: #fff8f8;
+border: 1px solid var(--danger);
+border-radius: var(--radius);
+padding: 20px;
+margin-top: 20px;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 15px;
+}
+
+.reject-box textarea {
+width: 100%;
+min-height: 120px;
+padding: 10px;
+border: 1px solid var(--border);
+border-radius: var(--radius);
+font-size: 14px;
+resize: vertical;
+}
+
+/* ------------------------------------------------------
+ATTACHMENTS GRID — 3 / 2 / 1 Layout
+------------------------------------------------------ */
+.documents-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr); /* Row 1: 3 items */
+gap: var(--gap);
+margin-top: 25px;
+justify-items: center;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 900px) {
+.documents-grid {
+grid-template-columns: repeat(2, 1fr);
+}
+/* Reset last child centering on smaller screen */
+.documents-grid > :last-child {
+grid-column: span 1;
+}
+}
+
+/* Media query for very small screens */
+@media (max-width: 600px) {
+.documents-grid {
+grid-template-columns: 1fr;
+}
+}
+
+
+/* Second row auto adjusts to 2 because only 7 items total */
+.documents-grid > :nth-child(4),
+.documents-grid > :nth-child(5) {
+grid-column: span 1;
+}
+
+/* Final last item centered alone (Only applies if 7 items are present) */
+.documents-grid > :last-child {
+grid-column: 2 / 3;
+}
+
+/* Attachment Box */
+.doc-box {
+background: #f9f9f9;
+border: 1px solid var(--border);
+border-radius: var(--radius);
+box-shadow: var(--shadow);
+padding: 14px;
+width: 100%;
+max-width: 280px;
+text-align: center;
+transition: var(--transition);
+}
+
+.doc-box:hover {
+transform: translateY(-4px);
+box-shadow: 0px 8px 20px rgba(0,0,0,0.12);
+}
+
+.doc-title {
+font-weight: 700;
+font-size: 14px;
+margin-bottom: 8px;
+color: var(--secondary); /* Teal highlight for document titles */
+}
+
+.doc-img,
+.doc-pdf {
+width: 100%;
+height: 180px;
+object-fit: cover;
+border-radius: var(--radius);
+border: 1px solid var(--border);
+}
+
+
+/* ------------------------------------------------------
+DETAILS GRID (Label : Value neat alignment)
+------------------------------------------------------ */
+.details-grid {
+display: grid;
+/* Adjusts the label column width to accommodate long labels */
+grid-template-columns: minmax(180px, max-content) 10px 1fr;
+gap: 12px 15px;
+margin-top: var(--gap);
+}
+
+.detail-item {
+display: contents; /* Allows children to participate directly in the grid */
+}
+
+.d-label {
+font-weight: 600;
+text-align: right;
+color: var(--text-dark);
+padding-right: 5px;
+}
+
+.d-sep {
+opacity: 0.6;
+text-align: center;
+}
+
+.d-value {
+color: var(--text-light);
+font-size: 15px;
+word-wrap: break-word; /* Prevents long text from breaking layout */
+}
+
+.img-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.img-modal-content {
+  max-width: 80%;
+  max-height: 80%;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #000;
+}
+
+/* C:\Users\ADMIN\Desktop\ProjectMahal\temp-app\src\css\approval.css */
+
+.ActionButtons{
+  display: flex;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.Approvaltable{
+  height: 100vh;
+  overflow-y: scroll;
+}
+.approval_btn{
+  margin: auto;
+      display: flex !important;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+.approval_btn button{
+  width:fit-content !important;
+
+}

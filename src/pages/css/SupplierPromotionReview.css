@@ -1,0 +1,296 @@
+.supplier-promo-page {
+  min-height: 100vh;
+  background: #f4f6f9;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* Main Card */
+.supplier-promo-card {
+  width: 950px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 35px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+}
+
+/* Header */
+.supplier-promo-card .promo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.supplier-promo-card .promo-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+/* Status Badge */
+.supplier-promo-card .status-badge {
+  padding: 7px 16px;
+  border-radius: 25px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.supplier-promo-card .status-invited {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.supplier-promo-card .status-accepted {
+  background: #d4edda;
+  color: #155724;
+}
+
+.supplier-promo-card .status-rejected {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* Description */
+.supplier-promo-card .promo-description {
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 30px;
+  font-size: 15px;
+}
+
+/* Info Grid */
+.supplier-promo-card .promo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-bottom: 35px;
+}
+
+.supplier-promo-card .grid-box {
+  background: #f9fafc;
+  padding: 18px;
+  border-radius: 10px;
+  border: 1px solid #e5eaf0;
+}
+
+.supplier-promo-card .grid-box p:first-child {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #6c757d;
+  font-size: 13px;
+}
+
+.supplier-promo-card .grid-box p:last-child {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+/* Buttons */
+.supplier-promo-card .button-row {
+  display: flex;
+  gap: 18px;
+  margin-top: 15px;
+  margin-bottom: 35px;
+}
+
+.supplier-promo-card .promo-btn {
+  flex: 1;
+  padding: 13px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+/* Accept Button */
+.supplier-promo-card .promo-btn-accept {
+  background: #2e7d32;
+  color: #ffffff;
+}
+
+.supplier-promo-card .promo-btn-accept:hover {
+  background: #1b5e20;
+  transform: translateY(-2px);
+}
+
+/* Reject Button */
+.supplier-promo-card .promo-btn-reject {
+  background: #c62828;
+  color: #ffffff;
+}
+
+.supplier-promo-card .promo-btn-reject:hover {
+  background: #8e0000;
+  transform: translateY(-2px);
+}
+
+/* Products Section */
+.supplier-promo-card .products-section {
+  margin-top: 25px;
+}
+
+.supplier-promo-card .products-section h3 {
+  margin-bottom: 20px;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+/* Product Grid */
+.supplier-promo-card .products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 22px;
+}
+
+/* Product Card */
+.supplier-promo-card .product-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 2px;
+  padding: 18px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.supplier-promo-card .product-card:hover {
+  box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+  transform: translateY(-4px);
+}
+
+/* Product Image */
+.supplier-promo-card .product-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+/* Product Name */
+.supplier-promo-card .product-name {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #2c3e50;
+}
+
+/* Pricing */
+.supplier-promo-card .product-price {
+  font-size: 14px;
+}
+
+.supplier-promo-card .original-price {
+  text-decoration: line-through;
+  color: #999;
+  margin-right: 6px;
+}
+
+.supplier-promo-card .discounted-price {
+  color: green;
+  font-weight: 700;
+}
+
+.product-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 4px;
+  filter: brightness(0.96);
+}
+
+.product-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.product-image-wrapper img {
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image-wrapper img {
+  transform: scale(1.05);
+}
+
+.su-offer-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  /* background: linear-gradient(135deg,#4f46e5,#4338ca); */
+  background: #ff3b30;
+
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+
+  padding: 6px 12px;
+
+  border-radius: 0 0 10px 0;
+
+  letter-spacing: 0.5px;
+
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+.promo-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.btn-corporate {
+  min-width: 130px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-accept {
+  background: #2e7d32;
+  color: white;
+}
+
+.btn-accept:hover {
+  background: #1b5e20;
+  color: white
+}
+
+.btn-reject {
+  background: #fff;
+  /* color: #d32f2f; */
+  border: 1px solid #f1b0b0;
+}
+
+.btn-reject:hover {
+  background: #ffeaea;
+  border-color: #d32f2f;
+  color: white;
+}
+
+.offer-badge {
+  animation: badgePop 0.4s ease;
+}
+
+@keyframes badgePop {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
