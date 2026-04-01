@@ -1,158 +1,62 @@
-# import os
-# import psycopg2
-# from psycopg2.extras import RealDictCursor
-# from dotenv import load_dotenv
-
-# # Load environment variables from .env file
-# load_dotenv()
-
-# def get_db_connection(use_azure=False):
-#     """
-#     Connect to PostgreSQL database.
-
-#     Parameters:
-#     - use_azure=True  → connect to Azure PostgreSQL
-#     - use_azure=False → connect to local PostgreSQL
-
-#     Returns:
-#     - psycopg2 connection object
-#     """
-#     try:
-#         if use_azure:
-#             host = os.getenv("AZURE_DB_HOST")
-#             database = os.getenv("AZURE_DB_NAME")
-#             user = os.getenv("AZURE_DB_USER")
-#             password = os.getenv("AZURE_DB_PASSWORD")
-#             port = os.getenv("AZURE_DB_PORT", "5432")
-#             sslmode = os.getenv("AZURE_DB_SSLMODE", "require")  # Azure requires SSL
-#         else:
-#             host = os.getenv("DB_HOST", "localhost")
-#             database = os.getenv("DB_NAME", "MAHALDATABASE")
-#             user = os.getenv("DB_USER", "postgres")
-#             password = os.getenv("DB_PASS", "Appu1718")
-#             port = os.getenv("DB_PORT", "5432")
-#             sslmode = "disable"  # Local DB usually does not use SSL
-
-#         # Connect with RealDictCursor for easy dict results
-#         conn = psycopg2.connect(
-#             host=host,
-#             database=database,
-#             user=user,
-#             password=password,
-#             port=port,
-#             sslmode=sslmode,
-#             cursor_factory=RealDictCursor
-#         )
-#         print(f"✅ Connected successfully to {'Azure' if use_azure else 'Local'} DB!")
-#         return conn
-
-#     except psycopg2.Error as e:
-#         print(f"❌ Database connection failed: {e.pgcode} - {e.pgerror}")
-#         raise e
-#     except Exception as e:
-#         print(f"❌ Unexpected error: {e}")
-#         raise e
-
-# # ✅ Automatically use Azure or local DB based on .env
-# use_azure = os.getenv("USE_AZURE_DB", "False").lower() in ("true", "1", "yes")
-# conn = get_db_connection(use_azure=use_azure)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# db.py
 import os
+
 import psycopg2
 from psycopg2.extras import RealDictCursor
-from dotenv import load_dotenv
 
-# Load .env values
-load_dotenv()
 
-# =====================================================
-#  ONLY LOCAL DATABASE IS ENABLED
-#  Azure DB section is fully commented.
-# =====================================================
+HYBRID_LOCAL_HOSTS = {"localhost", "127.0.0.1"}
+SERVICEBUS_SUFFIX = ".servicebus.windows.net"
+
+
+def _env(*names: str, default=None):
+    for name in names:
+        value = os.getenv(name)
+        if value not in (None, ""):
+            return value
+    return default
+
+
+def _build_azure_db_config() -> dict:
+    host = _env("DB_HOST", "AZURE_DB_HOST")
+    if host is None:
+        raise RuntimeError("FATAL: DB_HOST/AZURE_DB_HOST not found in environment!")
+
+    normalized_host = host.strip().lower()
+    if normalized_host in HYBRID_LOCAL_HOSTS:
+        raise ValueError(
+            "Hybrid Connections require the Hybrid Connection hostname (for example: postgres-demo), "
+            "not localhost/127.0.0.1."
+        )
+    if normalized_host.endswith(SERVICEBUS_SUFFIX):
+        raise ValueError(
+            "Use Hybrid Connection name as DB host (for example: postgres-demo), "
+            "not the *.servicebus.windows.net relay endpoint."
+        )
+
+    return {
+        "host": host,
+        "database": _env("DB_NAME", "AZURE_DB_NAME"),
+        "user": _env("DB_USER", "AZURE_DB_USER"),
+        "password": _env("DB_PASSWORD", "AZURE_DB_PASSWORD"),
+        "port": int(_env("DB_PORT", "AZURE_DB_PORT", default=5432)),
+        "sslmode": _env("DB_SSLMODE", "AZURE_DB_SSLMODE", default="disable"),
+    }
+
 
 def get_db_connection():
-    """
-    Safe Local PostgreSQL connection.
-    No Azure.
-    No global connections.
-    No leaks.
-    """
+    """Create PostgreSQL connection using DB_* (preferred) or AZURE_DB_* variables."""
+    config = _build_azure_db_config()
+
+    print(
+        f"🔎 Connecting to: {config['host']} "
+        f"as user: {config.get('user')} "
+        f"(port={config.get('port')}, sslmode={config.get('sslmode')})"
+    )
+
     try:
-        host = os.getenv("DB_HOST", "localhost")
-        database = os.getenv("DB_NAME", "MAHALDATABASE")
-        user = os.getenv("DB_USER", "postgres")
-        password = os.getenv("DB_PASS", "Appu1718")
-        port = os.getenv("DB_PORT", "5432")
-
-        conn = psycopg2.connect(
-            host=host,
-            database=database,
-            user=user,
-            password=password,
-            port=port,
-            sslmode="disable",          # LOCAL ONLY
-            cursor_factory=RealDictCursor
-        )
-
-        print("✅ Local DB connection OK")
+        conn = psycopg2.connect(cursor_factory=RealDictCursor, **config)
+        print("✅ Database connected via environment variables")
         return conn
-
-    except Exception as e:
-        print("❌ Local DB connection FAILED:", e)
-        raise e
-
-
-# =====================================================
-# ❌ COMMENTED: Azure Connection (Not Used Now)
-# =====================================================
-"""
-def get_azure_connection():
-    try:
-        host = os.getenv("AZURE_DB_HOST")
-        database = os.getenv("AZURE_DB_NAME")
-        user = os.getenv("AZURE_DB_USER")
-        password = os.getenv("AZURE_DB_PASSWORD")
-        port = os.getenv("AZURE_DB_PORT", "5432")
-
-        conn = psycopg2.connect(
-            host=host,
-            database=database,
-            user=user,
-            password=password,
-            port=port,
-            sslmode="require",
-            cursor_factory=RealDictCursor,
-        )
-
-        print("🌐 Azure DB Connected")
-        return conn
-
-    except Exception as e:
-        print("❌ Azure DB FAILED:", e)
-        raise e
-"""
-# =====================================================
-
-# ❗ IMPORTANT:
-# DO NOT open a DB connection here.
-# Connections should be created INSIDE routes and closed in finally blocks.
+    except Exception as error:
+        print("❌ Database connection failed:", error)
+        raise
