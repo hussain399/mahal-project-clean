@@ -1,3 +1,4 @@
+import os
 
 from flask import Blueprint, request, jsonify, current_app
 from datetime import datetime
@@ -560,7 +561,7 @@ def review_supplier(supplier_id):
                 ip_address=request.remote_addr
             )
 
-            login_url = "http://localhost:3000/SupplierLogIn"
+            login_url = os.getenv("FRONTEND_BASE_URL", "https://mahal-app") + "/SupplierLogIn"
 
             send_email(
                 supplier_email,

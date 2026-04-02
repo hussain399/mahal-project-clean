@@ -6,7 +6,7 @@
 #   const [products, setProducts] = useState([]);
 
 #   useEffect(() => {
-#     fetch(`http://127.0.0.1:5000/api/category/${catname}`)
+#     fetch(`https://mahal-api/api/category/${catname}`)
 #       .then(res => res.json())
 #       .then(data => setProducts(data))
 #       .catch(err => console.error("Filter error:", err));
@@ -22,7 +22,7 @@
 #         <div className="product-grid">
 #           {products.map((p) => (
 #             <div key={p.product_id} className="product-card">
-#               <img src={`http://127.0.0.1:5000/api/image/${p.product_id}`} alt="" />
+#               <img src={`https://mahal-api/api/image/${p.product_id}`} alt="" />
 #               <h4>{p.product_name_english}</h4>
 #               <p>{p.price_per_unit} {p.currency}</p>
 #             </div>

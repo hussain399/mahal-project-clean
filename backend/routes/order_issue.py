@@ -1,3 +1,4 @@
+import os
 # from flask import Blueprint, request, jsonify
 # from flask_cors import CORS
 # from psycopg2.extras import RealDictCursor
@@ -11,7 +12,7 @@
 # JWT_SECRET = "MAHAL_SUPER_SECRET_2025"
 
 # order_issue_bp = Blueprint("order_issue_bp", __name__)
-# CORS(order_issue_bp, origins=["http://localhost:3000"])
+# CORS(order_issue_bp, origins=[os.getenv("FRONTEND_BASE_URL", "https://mahal-app")])
 
 
 # # =====================================================
@@ -281,7 +282,7 @@ from backend.db import get_db_connection
 JWT_SECRET = "MAHAL_SUPER_SECRET_2025"
 
 order_issue_bp = Blueprint("order_issue_bp", __name__)
-CORS(order_issue_bp, origins=["http://localhost:3000"])
+CORS(order_issue_bp, origins=[os.getenv("FRONTEND_BASE_URL", "https://mahal-app")])
 
 
 # =====================================================

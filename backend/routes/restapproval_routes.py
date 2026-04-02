@@ -1,3 +1,4 @@
+import os
 
 from flask import Blueprint, request, jsonify, current_app, send_file
 import smtplib, traceback, json, base64, mimetypes, io
@@ -455,7 +456,7 @@ def review_restaurant(restaurant_id):
                 ip_address=request.remote_addr
             )
 
-            login_url = "http://localhost:3000/RestaurantLogIn"
+            login_url = os.getenv("FRONTEND_BASE_URL", "https://mahal-app") + "/RestaurantLogIn"
 
             send_email(
                 email,

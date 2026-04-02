@@ -1,4 +1,5 @@
-import smtplib, os
+import os
+import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
@@ -42,15 +43,14 @@ def send_admin_notification(role, entity_id, section, target_row_id=None):
             else "Store (New)"
         )
 
+    frontend_base_url = os.getenv("FRONTEND_BASE_URL", "https://mahal-app")
     html = f"""
     <h2>🔔 New Profile Change Request</h2>
     <p><b>Role:</b> {role.title()}</p>
     <p><b>ID:</b> {entity_id}</p>
     <p><b>Change Type:</b> {readable}</p>
 
-    <a href="http://localhost:3000/admin/profile-changes">
-      👉 Open Admin Panel
-    </a>
+    <a href="{frontend_base_url}/admin/profile-changes">👉 Open Admin Panel</a>
     """
 
     send_mail(

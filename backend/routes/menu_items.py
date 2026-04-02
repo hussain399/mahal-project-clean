@@ -1,18 +1,10 @@
 from flask import Blueprint, request, jsonify
-import psycopg2
+from psycopg2 import Binary
 from psycopg2.extras import RealDictCursor
+from backend.db import get_db_connection, release_db_connection
 
 menu_items_bp = Blueprint("menu_items", __name__, url_prefix="/api")
 
-
-def get_db_connection():
-    return psycopg2.connect(
-        host="localhost",
-        database="MAHALDATABASE",
-        user="postgres",
-        password="Appu1718",
-        port="5432"
-    )
 
 def parse_int(value, field_name):
     try:
@@ -63,7 +55,7 @@ def create_menu_item():
             price,
             portion_size,
             description,
-            psycopg2.Binary(image_bytes) if image_bytes else None,
+            Binary(image_bytes) if image_bytes else None,
             status
         ))
 
@@ -71,7 +63,7 @@ def create_menu_item():
         conn.commit()
 
         cur.close()
-        conn.close()
+        release_db_connection(conn)
 
         return jsonify({
             "message": "Menu item created successfully",
@@ -122,7 +114,7 @@ def get_menu_items():
             r["image"] = "/images/food-placeholder.png"
 
     cur.close()
-    conn.close()
+    release_db_connection(conn)
 
     return jsonify(rows), 200
 
@@ -170,7 +162,7 @@ def update_menu_item(item_id):
             float(price),
             portion_size,
             description,
-            psycopg2.Binary(image_bytes),
+            Binary(image_bytes),
             status,
             item_id,
             restaurant_id
@@ -199,11 +191,11 @@ def update_menu_item(item_id):
     if cur.rowcount == 0:
         conn.rollback()
         cur.close()
-        conn.close()
+        release_db_connection(conn)
         return jsonify({"error": "Menu item not found or unauthorized"}), 404
 
     conn.commit()
     cur.close()
-    conn.close()
+    release_db_connection(conn)
 
     return jsonify({"message": "Menu item updated successfully"}), 200

@@ -1,35 +1,25 @@
 # routes/general_routes.py
 from flask import Blueprint, request, jsonify
-import psycopg2
 from psycopg2.extras import RealDictCursor
-# from db import get_connection
+from backend.db import get_db_connection, release_db_connection
 
 general_bp = Blueprint("general_bp", __name__, url_prefix="/api/v1")
 
 # ------------------------------
 # DB Connection
 # ------------------------------
-def get_connection():
-    return psycopg2.connect(
-        host="localhost",
-        database="MAHALDATABASE",
-        user="postgres",
-        password="Appu1718",
-        port="5432"
-    )
-
 # ------------------------------
 # GET all categories
 # ------------------------------
 @general_bp.route("/categories", methods=["GET"])
 def get_categories():
     try:
-        conn = get_connection()
+        conn = get_db_connection()
         cur = conn.cursor()
         cur.execute("SELECT DISTINCT category FROM general_master ORDER BY category;")
         categories = [row[0] for row in cur.fetchall()]
         cur.close()
-        conn.close()
+        release_db_connection(conn)
         return jsonify(categories)
     except Exception as e:
         print("Error fetching categories:", e)
@@ -45,12 +35,12 @@ def get_records_by_category():
         return jsonify({"error": "Missing category parameter"}), 400
 
     try:
-        conn = get_connection()
+        conn = get_db_connection()
         cur = conn.cursor(cursor_factory=RealDictCursor)
         cur.execute("SELECT * FROM general_master WHERE category = %s;", (category,))
         records = cur.fetchall()
         cur.close()
-        conn.close()
+        release_db_connection(conn)
         return jsonify(records)
     except Exception as e:
         print("Error fetching records:", e)
@@ -69,7 +59,7 @@ def create_record():
         return jsonify({"error": "Both category and value are required"}), 400
 
     try:
-        conn = get_connection()
+        conn = get_db_connection()
         cur = conn.cursor()
         cur.execute(
             "INSERT INTO general_master (category, value) VALUES (%s, %s) RETURNING id;",
@@ -78,7 +68,7 @@ def create_record():
         new_id = cur.fetchone()[0]
         conn.commit()
         cur.close()
-        conn.close()
+        release_db_connection(conn)
         return jsonify({"message": "Record added", "id": new_id}), 201
     except Exception as e:
         print("Error creating record:", e)
@@ -90,12 +80,12 @@ def create_record():
 @general_bp.route("/records/<int:record_id>", methods=["DELETE"])
 def delete_record(record_id):
     try:
-        conn = get_connection()
+        conn = get_db_connection()
         cur = conn.cursor()
         cur.execute("DELETE FROM general_master WHERE id = %s;", (record_id,))
         conn.commit()
         cur.close()
-        conn.close()
+        release_db_connection(conn)
         return jsonify({"message": f"Record {record_id} deleted"}), 200
     except Exception as e:
         print("Error deleting record:", e)
