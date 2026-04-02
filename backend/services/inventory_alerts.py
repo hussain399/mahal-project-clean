@@ -1,6 +1,6 @@
 from flask_mail import Message
 from psycopg2.extras import RealDictCursor
-from db import get_db_connection
+from backend.db import get_db_connection
 from app import mail
 
 

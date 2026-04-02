@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from psycopg2.extras import RealDictCursor, Json
-from db import get_db_connection
+from backend.db import get_db_connection
 from routes.admin_guard import require_admin
 from datetime import datetime
 

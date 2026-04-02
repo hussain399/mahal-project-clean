@@ -7,7 +7,7 @@ import smtplib
 from email.mime.text import MIMEText
 
 from routes.admin_audit import log_admin_action
-from db import get_db_connection
+from backend.db import get_db_connection
 from routes.admin_guard import require_admin
 
 

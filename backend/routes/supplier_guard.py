@@ -2,7 +2,7 @@ import jwt
 from functools import wraps
 from flask import request, jsonify, g
 from psycopg2.extras import RealDictCursor
-from db import get_db_connection
+from backend.db import get_db_connection
 
 JWT_SECRET = "MAHAL_SUPER_SECRET_2025"
 

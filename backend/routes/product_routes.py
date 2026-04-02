@@ -1,7 +1,7 @@
 
 from flask import Blueprint, request, jsonify, send_from_directory, current_app
 from flask_cors import CORS
-from psycopg2 import pool, Binary
+from psycopg2 import Binary
 from psycopg2.extras import RealDictCursor
 import base64
 import os
@@ -15,13 +15,12 @@ from werkzeug.utils import secure_filename
 from flask import request
 import jwt
 import datetime
-import psycopg2
 
 JWT_SECRET = "MAHAL_SUPER_SECRET_2025"
 
 from flask import current_app
 from flask_mail import Message
-from backend.db import get_db_connection
+from backend.db import get_db_connection, release_db_connection
 from backend.app import mail
 from psycopg2.extras import RealDictCursor
 
@@ -40,24 +39,13 @@ CORS(
 )
 
 
-# ---------------- DB POOL ----------------
-DB_CONFIG = {
-    "host": os.getenv("DB_HOST", "localhost"),
-    "database": os.getenv("DB_NAME", "MAHALDATABASE"),
-    "user": os.getenv("DB_USER", "postgres"),
-    "password": os.getenv("DB_PASSWORD", "Appu1718"),
-}
-
-_db_pool = pool.SimpleConnectionPool(1, 20, **DB_CONFIG)
-
+# ---------------- DB Pool Adapters ----------------
 def get_conn():
-    return _db_pool.getconn()
+    return get_db_connection()
+
 
 def release_conn(conn):
-    try:
-        _db_pool.putconn(conn)
-    except Exception:
-        pass
+    release_db_connection(conn)
 
 # ---------------- Paths & Template ----------------
 BASE_DIR = os.path.dirname(__file__)
@@ -999,7 +987,6 @@ def delete_product(product_id):
 
 #             # for idx, img in enumerate(raw_images):
 #             #     image_urls.append(
-#             #         f"http://127.0.0.1:5000/product/image/{row['product_id']}/{idx}"
 #             #     )
 
 #             # row["product_images"] = image_urls

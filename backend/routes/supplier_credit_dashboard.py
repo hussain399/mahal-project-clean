@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, g, send_file
 from psycopg2.extras import RealDictCursor
-from db import get_db_connection
+from backend.db import get_db_connection
 from routes.supplier_guard import require_supplier
 import io
 import json

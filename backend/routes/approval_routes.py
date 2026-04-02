@@ -1,3 +1,4 @@
+import os
 
 from flask import Blueprint, request, jsonify, current_app
 from datetime import datetime
@@ -17,7 +18,7 @@ from openpyxl import Workbook
 
 
 # Assuming db.py and get_db_connection are set up correctly
-from db import get_db_connection
+from backend.db import get_db_connection
 
 MASTER_REQUIRED_FIELDS = {
     "Supplier Registration Details": [
@@ -560,7 +561,7 @@ def review_supplier(supplier_id):
                 ip_address=request.remote_addr
             )
 
-            login_url = "http://localhost:3000/SupplierLogIn"
+            login_url = os.getenv("FRONTEND_BASE_URL", "https://mahal-app") + "/SupplierLogIn"
 
             send_email(
                 supplier_email,

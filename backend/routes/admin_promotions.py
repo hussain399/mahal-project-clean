@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from datetime import date
-from db import get_db_connection
+from backend.db import get_db_connection
 from psycopg2.extras import RealDictCursor
 import json
 from helpers import build_file_json_from_base64

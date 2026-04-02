@@ -1,9 +1,10 @@
+import os
 from flask import Blueprint, request, jsonify
 from flask_cors import CORS
 from psycopg2.extras import RealDictCursor
 import jwt
 import traceback
-from db import get_db_connection
+from backend.db import get_db_connection
 
 JWT_SECRET = "MAHAL_SUPER_SECRET_2025"
 
@@ -11,8 +12,8 @@ restaurant_order_bp = Blueprint("restaurant_order_bp", __name__)
 CORS(
     restaurant_order_bp,
     origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
+        os.getenv("FRONTEND_BASE_URL", "https://mahal-app"),
+        os.getenv("FRONTEND_BASE_URL", "https://mahal-app"),
         "http://192.168.2.18:3000"
     ],
     supports_credentials=True

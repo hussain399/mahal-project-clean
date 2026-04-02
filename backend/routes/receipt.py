@@ -1,19 +1,10 @@
 from flask import Blueprint, jsonify, request
-import psycopg2
 from psycopg2.extras import RealDictCursor
+from backend.db import get_db_connection, release_db_connection
 from datetime import datetime
 from uuid import uuid4
 
 receipt_bp = Blueprint("receipt", __name__, url_prefix="/api/v1/receipt")
-
-
-def get_db():
-    return psycopg2.connect(
-        host="localhost",
-        database="MAHALDATABASE",
-        user="postgres",
-        password="Appu1718"
-    )
 
 
 # =====================================================
@@ -22,7 +13,7 @@ def get_db():
 # =====================================================
 @receipt_bp.route("/generate/<order_id>", methods=["POST"])
 def generate_receipt(order_id):
-    conn = get_db()
+    conn = get_db_connection()
     cur = conn.cursor(cursor_factory=RealDictCursor)
 
     try:
@@ -116,7 +107,7 @@ def generate_receipt(order_id):
 
     finally:
         cur.close()
-        conn.close()
+        release_db_connection(conn)
 
 
 # =====================================================
@@ -125,7 +116,7 @@ def generate_receipt(order_id):
 # =====================================================
 @receipt_bp.route("/<order_id>", methods=["GET"])
 def get_receipt(order_id):
-    conn = get_db()
+    conn = get_db_connection()
     cur = conn.cursor(cursor_factory=RealDictCursor)
 
     try:
@@ -177,4 +168,4 @@ def get_receipt(order_id):
 
     finally:
         cur.close()
-        conn.close()
+        release_db_connection(conn)

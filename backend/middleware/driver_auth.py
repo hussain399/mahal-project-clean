@@ -32,7 +32,7 @@
 from functools import wraps
 from flask import request, jsonify
 from utils.driver_token import verify_driver_token
-from db import get_db_connection
+from backend.db import get_db_connection
 from psycopg2.extras import RealDictCursor
 from datetime import datetime
 

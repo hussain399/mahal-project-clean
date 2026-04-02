@@ -6,8 +6,6 @@
 # menu_items_bp = Blueprint("menu_items_bp", __name__, url_prefix="/api")
 
 # def get_db_connection():
-#     return psycopg2.connect(
-#         host="localhost",
 #         database="MAHALDATABASE",
 #         user="postgres",
 #         password="Appu1718",

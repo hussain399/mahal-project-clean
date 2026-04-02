@@ -1,11 +1,10 @@
 import os
+import time
 
-import psycopg2
+from psycopg2 import pool
 from psycopg2.extras import RealDictCursor
 
-
-LOCAL_DB_HOSTS = {"localhost", "127.0.0.1"}
-SERVICEBUS_SUFFIX = ".servicebus.windows.net"
+_connection_pool = None
 
 
 def _env(*names: str, default=None):
@@ -16,59 +15,67 @@ def _env(*names: str, default=None):
     return default
 
 
-def _to_bool(value: str | None, default: bool = False) -> bool:
-    if value is None:
-        return default
-    return value.strip().lower() in {"1", "true", "yes", "on"}
-
-
 def _build_db_config() -> dict:
-    """
-    Build PostgreSQL config from environment.
-    Priority: DB_* then AZURE_DB_* fallbacks.
-    """
-    host = _env("DB_HOST", "AZURE_DB_HOST")
-    if host is None:
-        raise RuntimeError("FATAL: DB_HOST/AZURE_DB_HOST not found in environment!")
-
-    normalized_host = host.strip().lower()
-    allow_local_host = _to_bool(os.getenv("ALLOW_LOCAL_DB_HOST"), default=True)
-
-    if normalized_host.endswith(SERVICEBUS_SUFFIX):
-        raise ValueError(
-            "Use Hybrid Connection alias/host as DB host (for example: postgres-db), "
-            "not the *.servicebus.windows.net relay endpoint."
-        )
-
-    if normalized_host in LOCAL_DB_HOSTS and not allow_local_host:
-        raise ValueError(
-            "DB host is localhost/127.0.0.1 but ALLOW_LOCAL_DB_HOST is disabled. "
-            "Enable ALLOW_LOCAL_DB_HOST=1 or provide the hybrid alias hostname."
-        )
+    """Build PostgreSQL config from AZURE_DB_* variables (with DB_* fallback)."""
+    host = _env("AZURE_DB_HOST", "DB_HOST", default="mahal-db")
 
     return {
         "host": host,
-        "database": _env("DB_NAME", "AZURE_DB_NAME"),
-        "user": _env("DB_USER", "AZURE_DB_USER"),
-        "password": _env("DB_PASSWORD", "AZURE_DB_PASSWORD"),
-        "port": int(_env("DB_PORT", "AZURE_DB_PORT", default=5432)),
-        "sslmode": _env("DB_SSLMODE", "AZURE_DB_SSLMODE", default="disable"),
+        "database": _env("AZURE_DB_NAME", "DB_NAME"),
+        "user": _env("AZURE_DB_USER", "DB_USER"),
+        "password": _env("AZURE_DB_PASSWORD", "DB_PASSWORD"),
+        "port": int(_env("AZURE_DB_PORT", "DB_PORT", default=5432)),
+        "sslmode": _env("AZURE_DB_SSLMODE", "DB_SSLMODE", default="disable"),
+        "cursor_factory": RealDictCursor,
     }
 
 
+def get_connection_pool():
+    global _connection_pool
+
+    if _connection_pool is None:
+        config = _build_db_config()
+        print(f"🔎 Creating connection pool for {config['host']}:{config['port']}")
+
+        retries = 3
+        for attempt in range(retries):
+            try:
+                _connection_pool = pool.SimpleConnectionPool(1, 20, **config)
+                print("✅ Connection pool created")
+                break
+            except Exception as error:
+                print(f"❌ Pool creation failed (attempt {attempt + 1}): {error}")
+                time.sleep(2)
+
+        if _connection_pool is None:
+            raise RuntimeError("Failed to create DB connection pool after retries")
+
+    return _connection_pool
+
+
+class _PooledConnectionProxy:
+    def __init__(self, conn):
+        self._conn = conn
+
+    def __getattr__(self, item):
+        return getattr(self._conn, item)
+
+    def close(self):
+        release_db_connection(self)
+
+
 def get_db_connection():
-    """Create PostgreSQL connection using DB_* (preferred) or AZURE_DB_* variables."""
-    config = _build_db_config()
+    connection_pool = get_connection_pool()
+    conn = connection_pool.getconn()
+    print("📦 Connection acquired")
+    return _PooledConnectionProxy(conn)
 
-    print(
-        f"🔎 Connecting to DB host={config['host']} user={config.get('user')} "
-        f"port={config.get('port')} sslmode={config.get('sslmode')}"
-    )
 
-    try:
-        conn = psycopg2.connect(cursor_factory=RealDictCursor, **config)
-        print("✅ Database connected via environment variables")
-        return conn
-    except Exception as error:
-        print("❌ Database connection failed:", error)
-        raise
+def release_db_connection(conn):
+    if conn is None:
+        return
+
+    connection_pool = get_connection_pool()
+    raw_conn = getattr(conn, "_conn", conn)
+    connection_pool.putconn(raw_conn)
+    print("🔁 Connection released")

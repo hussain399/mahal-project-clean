@@ -1,5 +1,5 @@
 # from flask import Blueprint, request, jsonify, g
-# from db import get_db_connection
+# from backend.db import get_db_connection
 # import json
 # from flask_cors import CORS
 # from routes.notifications import send_admin_notification
@@ -669,7 +669,7 @@
 #     })
 
 from flask import Blueprint, request, jsonify, g
-from db import get_db_connection
+from backend.db import get_db_connection
 import json
 from flask_cors import CORS
 from routes.notifications import send_admin_notification

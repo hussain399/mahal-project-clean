@@ -1,11 +1,12 @@
+import os
 # stores_routes.py
 from flask import Blueprint, request, jsonify
 from flask_cors import CORS
-from db import get_db_connection
+from backend.db import get_db_connection
 from datetime import datetime
 
 store_bp = Blueprint("store_bp", __name__, url_prefix="/api")
-CORS(store_bp, origins=["http://localhost:3000"])  # Allow frontend React app
+CORS(store_bp, origins=[os.getenv("FRONTEND_BASE_URL", "https://mahal-app")])  # Allow frontend React app
 
 
 # ===============================================================
@@ -276,7 +277,7 @@ def get_branches():
         return jsonify({"error": "server error"}), 500
     
 from flask import Blueprint, request, jsonify
-from db import get_db_connection
+from backend.db import get_db_connection
 
 stores_bp = Blueprint("stores_bp", __name__)
 

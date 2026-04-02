@@ -1,6 +1,6 @@
 # C:\Users\ADMIN\Desktop\mahal-app - Copy (4)\mahal-app - Copy\backend\routes\profile_setup_routes.py
 from flask import Blueprint, jsonify, request, abort
-from db import get_db_connection
+from backend.db import get_db_connection
 import traceback
 import base64
 from psycopg2 import Binary

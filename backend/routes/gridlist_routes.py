@@ -1,7 +1,7 @@
 # routes/gridlist_routes.py
 from flask import Blueprint, jsonify, request, current_app,request, send_from_directory
 from flask_cors import CORS
-from db import get_db_connection
+from backend.db import get_db_connection
 from psycopg2.extras import RealDictCursor
 import base64
 from datetime import datetime, timezone, date 

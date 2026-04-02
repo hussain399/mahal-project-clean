@@ -1,10 +1,8 @@
 from flask import Blueprint, request, jsonify
 from flask_cors import CORS
-from db import get_db_connection
+from backend.db import get_db_connection
 from psycopg2.extras import RealDictCursor
 from datetime import datetime
-import psycopg2
-import os
 import json
 import traceback
 import jwt
@@ -102,7 +100,6 @@ def get_restaurant_from_token():
 # Blueprint setup
 # ----------------------------------------------
 order_bp = Blueprint("order_bp", __name__)
-# CORS(order_bp, origins=["http://localhost:3000", "http://127.0.0.1:3000"])
 CORS(
     order_bp,
     resources={r"/*": {"origins": "*"}},
@@ -110,26 +107,6 @@ CORS(
 )
 restaurant_bp = Blueprint("restaurant_bp", __name__)
 
-# -------------------------------------------------
-# Helper: Direct Azure connection for general
-# -------------------------------------------------
-def get_azure_connection():
-    """Connect directly to Azure DB (alifmahal)."""
-    try:
-        conn = psycopg2.connect(
-            host=os.getenv("AZURE_DB_HOST"),
-            database=os.getenv("AZURE_DB_NAME"),
-            user=os.getenv("AZURE_DB_USER"),
-            password=os.getenv("AZURE_DB_PASSWORD"),
-            port=os.getenv("AZURE_DB_PORT", "5432"),
-            sslmode=os.getenv("AZURE_DB_SSLMODE", "require"),
-            cursor_factory=RealDictCursor
-        )
-        print("✅ Connected directly to Azure DB for general")
-        return conn
-    except Exception as e:
-        print("❌ Azure DB connection failed (general):", e)
-        raise e
 @order_bp.route("/orders-summary", methods=["GET"])
 def supplier_orders_summary():
     supplier_id, err = get_supplier_from_token()

@@ -2,7 +2,7 @@
 
 from flask import Blueprint, request, jsonify, current_app
 from psycopg2.extras import RealDictCursor
-from db import get_db_connection
+from backend.db import get_db_connection
 
 import jwt
 from functools import wraps
