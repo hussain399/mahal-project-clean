@@ -52,8 +52,12 @@ def create_app():
     app.url_map.strict_slashes = False
 
     # ================= ENV URL CONFIG =================
-    app.config["API_URL"] = os.getenv("API_URL", "mahal-backend.azurewebsites.net")
-    app.config["URL_PREFIX"] = os.getenv("URL_PREFIX", "mahal-backend.azurewebsites.net")
+    # URL_PREFIX is the single canonical backend host/origin setting.
+    # API_URL is kept only as a backward-compatible fallback.
+    app.config["URL_PREFIX"] = os.getenv(
+        "URL_PREFIX",
+        os.getenv("API_URL", "mahal-backend.azurewebsites.net"),
+    )
 
     # ================= MAIL CONFIG =================
     app.config["MAIL_SERVER"] = os.getenv("MAIL_SERVER", "smtp.gmail.com")
@@ -172,14 +176,11 @@ def create_app():
 
     @app.route("/api/debug/ping", methods=["GET", "OPTIONS"])
     def ping():
-        return {"status": "ok", "api_url": app.config["API_URL"]}, 200
+        return {"status": "ok", "url_prefix": app.config["URL_PREFIX"]}, 200
 
     # ================= CORS CONFIG =================
     cors_allow_all = os.getenv("CORS_ALLOW_ALL", "1") == "1"
-    default_origins = [
-        _host_to_origin(app.config["URL_PREFIX"]),
-        _host_to_origin(app.config["API_URL"]),
-    ]
+    default_origins = [_host_to_origin(app.config["URL_PREFIX"])]
     frontend_origins = _split_origins(
         os.getenv("FRONTEND_URL", ",".join(origin for origin in default_origins if origin))
     )
