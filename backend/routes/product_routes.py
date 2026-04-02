@@ -22,7 +22,7 @@ JWT_SECRET = "MAHAL_SUPER_SECRET_2025"
 from flask import current_app
 from flask_mail import Message
 from backend.db import get_db_connection
-from app import mail
+from backend.app import mail
 from psycopg2.extras import RealDictCursor
 
 from services.inventory_alerts import (
