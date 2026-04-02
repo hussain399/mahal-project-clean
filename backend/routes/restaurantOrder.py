@@ -3,7 +3,7 @@ from flask_cors import CORS
 from psycopg2.extras import RealDictCursor
 import jwt
 import traceback
-from db import get_db_connection
+from backend.db import get_db_connection
 
 JWT_SECRET = "MAHAL_SUPER_SECRET_2025"
 

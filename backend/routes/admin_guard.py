@@ -4,7 +4,7 @@ from flask import request, jsonify, current_app, g
 from datetime import datetime, timezone
 from psycopg2.extras import RealDictCursor
 
-from db import get_db_connection
+from backend.db import get_db_connection
 from routes.admin_audit import log_admin_action
 
 

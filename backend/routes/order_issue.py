@@ -6,7 +6,7 @@
 # import jwt
 # import base64
 
-# from db import get_db_connection
+# from backend.db import get_db_connection
 
 # JWT_SECRET = "MAHAL_SUPER_SECRET_2025"
 
@@ -276,7 +276,7 @@ from psycopg2 import Binary
 import jwt
 import base64
 
-from db import get_db_connection
+from backend.db import get_db_connection
 
 JWT_SECRET = "MAHAL_SUPER_SECRET_2025"
 

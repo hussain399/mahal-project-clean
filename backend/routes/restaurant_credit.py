@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from psycopg2.extras import RealDictCursor
-from db import get_db_connection
+from backend.db import get_db_connection
 from routes.restaurantOrder import get_restaurant_from_token
 from flask import send_file
 import io

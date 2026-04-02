@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from db import get_db_connection
+from backend.db import get_db_connection
 import psycopg2.extras
 
 recipe_bp = Blueprint("recipe_bp", __name__, url_prefix="/api/recipes")

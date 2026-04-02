@@ -1,7 +1,7 @@
 # from flask import Blueprint, request, jsonify
 # from psycopg2.extras import RealDictCursor
 # from flask_mail import Message
-# from db import get_db_connection
+# from backend.db import get_db_connection
 # from app import mail
 
 
@@ -259,7 +259,7 @@
 from flask import Blueprint, request, jsonify
 from psycopg2.extras import RealDictCursor
 from flask_mail import Message
-from db import get_db_connection
+from backend.db import get_db_connection
 from app import mail
 from decimal import Decimal
 

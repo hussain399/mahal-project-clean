@@ -1,5 +1,5 @@
 # from flask import Blueprint, request, jsonify
-# from db import get_db_connection
+# from backend.db import get_db_connection
 
 # wishlist_bp = Blueprint("wishlist_bp", __name__)
 
@@ -143,7 +143,7 @@
 
 
 from flask import Blueprint, request, jsonify
-from db import get_db_connection
+from backend.db import get_db_connection
 from psycopg2.extras import RealDictCursor
 import jwt
 

@@ -1,7 +1,7 @@
 # routes/change_password_routes.py
 from flask import Blueprint, request, jsonify
 from psycopg2.extras import RealDictCursor
-from db import get_db_connection
+from backend.db import get_db_connection
 
 change_bp = Blueprint("change_bp", __name__)
 

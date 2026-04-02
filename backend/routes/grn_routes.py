@@ -1,6 +1,6 @@
 # from flask import Blueprint, request, jsonify
 # from psycopg2.extras import RealDictCursor
-# from db import get_db_connection
+# from backend.db import get_db_connection
 # import jwt
 
 # JWT_SECRET = "MAHAL_SUPER_SECRET_2025"
@@ -312,7 +312,7 @@
 
 from flask import Blueprint, request, jsonify
 from psycopg2.extras import RealDictCursor
-from db import get_db_connection
+from backend.db import get_db_connection
 import jwt
 import base64
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, Image

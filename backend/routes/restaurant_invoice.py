@@ -4,7 +4,7 @@
 
 # from flask import Blueprint, jsonify, request, send_file
 # from psycopg2.extras import RealDictCursor
-# from db import get_db_connection
+# from backend.db import get_db_connection
 # import jwt
 # import io
 # from reportlab.platypus import (
@@ -369,7 +369,7 @@
 # from reportlab.lib.pagesizes import A4
 # from reportlab.lib.styles import getSampleStyleSheet
 # from reportlab.lib import colors
-# from db import get_db_connection
+# from backend.db import get_db_connection
 
 # JWT_SECRET = "MAHAL_SUPER_SECRET_2025"
 
@@ -765,7 +765,7 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib import colors
 
-from db import get_db_connection
+from backend.db import get_db_connection
 
 JWT_SECRET = "MAHAL_SUPER_SECRET_2025"
 

@@ -1,7 +1,7 @@
 # stores_routes.py
 from flask import Blueprint, request, jsonify
 from flask_cors import CORS
-from db import get_db_connection
+from backend.db import get_db_connection
 from datetime import datetime
 
 store_bp = Blueprint("store_bp", __name__, url_prefix="/api")
@@ -276,7 +276,7 @@ def get_branches():
         return jsonify({"error": "server error"}), 500
     
 from flask import Blueprint, request, jsonify
-from db import get_db_connection
+from backend.db import get_db_connection
 
 stores_bp = Blueprint("stores_bp", __name__)
 

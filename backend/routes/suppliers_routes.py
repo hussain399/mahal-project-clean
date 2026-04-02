@@ -10,7 +10,7 @@
 # import io
 # import traceback
 
-# from db import get_db_connection
+# from backend.db import get_db_connection
 # from app import mail
 
 # supplier_bp = Blueprint("supplier_bp", __name__)
@@ -367,7 +367,7 @@
 # import traceback
 # from psycopg2.extras import RealDictCursor
 
-# from db import get_db_connection
+# from backend.db import get_db_connection
 # from app import mail
 
 # supplier_bp = Blueprint("supplier_bp", __name__)
@@ -727,7 +727,7 @@ import io
 import traceback
 from psycopg2.extras import RealDictCursor
 
-from db import get_db_connection
+from backend.db import get_db_connection
 from app import mail
 
 supplier_bp = Blueprint("supplier_bp", __name__)

@@ -1,6 +1,6 @@
 # from flask import Blueprint, jsonify, request, Response, send_file
 # from flask_cors import cross_origin
-# from db import get_db_connection
+# from backend.db import get_db_connection
 # from io import BytesIO
 # import pandas as pd
 
@@ -340,7 +340,7 @@
 
 from flask import Blueprint, jsonify, request, Response, send_file
 from flask_cors import cross_origin
-from db import get_db_connection
+from backend.db import get_db_connection
 from io import BytesIO
 import pandas as pd
 from psycopg2.extras import RealDictCursor

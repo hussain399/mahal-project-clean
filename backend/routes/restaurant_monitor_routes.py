@@ -2,7 +2,7 @@
 
 from flask import Blueprint, jsonify, request, g
 from psycopg2.extras import RealDictCursor
-from db import get_db_connection
+from backend.db import get_db_connection
 from routes.admin_guard import require_admin
 from routes.admin_audit import log_admin_action
 
