@@ -10,6 +10,19 @@ from flasgger import Swagger
 mail = Mail()
 
 
+def _host_to_origin(value: str) -> str:
+    trimmed = value.strip()
+    if not trimmed:
+        return ""
+    if trimmed.startswith("http://") or trimmed.startswith("https://"):
+        return trimmed.rstrip("/")
+    return f"https://{trimmed.rstrip('/')}"
+
+
+def _split_origins(value: str) -> list[str]:
+    return [item.strip().rstrip("/") for item in value.split(",") if item.strip()]
+
+
 def init_swagger(app):
     app.config["SWAGGER"] = {
         "title": "Mahal API",
@@ -38,17 +51,18 @@ def create_app():
     app = Flask(__name__)
     app.url_map.strict_slashes = False
 
+    # ================= ENV URL CONFIG =================
+    app.config["API_URL"] = os.getenv("API_URL", "mahal-backend.azurewebsites.net")
+    app.config["URL_PREFIX"] = os.getenv("URL_PREFIX", "mahal-backend.azurewebsites.net")
+
     # ================= MAIL CONFIG =================
-    app.config["MAIL_SERVER"] = "smtp.gmail.com"
-    app.config["MAIL_PORT"] = 587
-    app.config["MAIL_USE_TLS"] = True
-    app.config["MAIL_USE_SSL"] = False
+    app.config["MAIL_SERVER"] = os.getenv("MAIL_SERVER", "smtp.gmail.com")
+    app.config["MAIL_PORT"] = int(os.getenv("MAIL_PORT", "587"))
+    app.config["MAIL_USE_TLS"] = os.getenv("MAIL_USE_TLS", "1") == "1"
+    app.config["MAIL_USE_SSL"] = os.getenv("MAIL_USE_SSL", "0") == "1"
     app.config["MAIL_USERNAME"] = os.getenv("MAIL_USERNAME")
     app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD")
-    app.config["MAIL_DEFAULT_SENDER"] = (
-        "Mahal Team",
-        os.getenv("MAIL_USERNAME")
-    )
+    app.config["MAIL_DEFAULT_SENDER"] = ("Mahal Team", os.getenv("MAIL_USERNAME"))
     app.config["ADMIN_EMAIL"] = os.getenv("ADMIN_EMAIL")
 
     mail.init_app(app)
@@ -158,20 +172,17 @@ def create_app():
 
     @app.route("/api/debug/ping", methods=["GET", "OPTIONS"])
     def ping():
-        return {"status": "ok"}, 200
+        return {"status": "ok", "api_url": app.config["API_URL"]}, 200
 
     # ================= CORS CONFIG =================
-    # Default to permissive CORS to avoid browser-side "network error"
-    # masking backend responses. Restrict with FRONTEND_URL when required.
     cors_allow_all = os.getenv("CORS_ALLOW_ALL", "1") == "1"
-    frontend_origins = [
-        origin.strip()
-        for origin in os.getenv(
-            "FRONTEND_URL",
-            "https://black-coast-0e22d1110.2.azurestaticapps.net",
-        ).split(",")
-        if origin.strip()
+    default_origins = [
+        _host_to_origin(app.config["URL_PREFIX"]),
+        _host_to_origin(app.config["API_URL"]),
     ]
+    frontend_origins = _split_origins(
+        os.getenv("FRONTEND_URL", ",".join(origin for origin in default_origins if origin))
+    )
 
     CORS(
         app,
@@ -242,5 +253,5 @@ if __name__ == "__main__":
     app.run(
         host="0.0.0.0",
         port=int(os.getenv("PORT", 5000)),
-        debug=os.getenv("FLASK_DEBUG", "1") == "1"
+        debug=os.getenv("FLASK_DEBUG", "1") == "1",
     )
