@@ -7,7 +7,7 @@ import random
 import smtplib
 from email.mime.text import MIMEText
 
-from db import get_db_connection
+from backend.db import get_db_connection
 
 auth_bp = Blueprint("auth_bp", __name__, url_prefix="/api/auth")
 

@@ -1,6 +1,6 @@
 # backend/routes/filter_routes.py
 from flask import Blueprint, jsonify, request
-from db import get_db_connection
+from backend.db import get_db_connection
 
 filter_bp = Blueprint("filter_bp", __name__)
 

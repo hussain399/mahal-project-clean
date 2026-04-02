@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from db import get_db_connection
+from backend.db import get_db_connection
 import psycopg2.extras
 
 addresses_bp = Blueprint("addresses_bp", __name__)

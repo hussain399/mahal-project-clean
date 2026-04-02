@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_cors import CORS
-from db import get_db_connection
+from backend.db import get_db_connection
 from psycopg2.extras import RealDictCursor
 from datetime import datetime
 import psycopg2

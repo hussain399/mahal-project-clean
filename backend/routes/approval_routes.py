@@ -17,7 +17,7 @@ from openpyxl import Workbook
 
 
 # Assuming db.py and get_db_connection are set up correctly
-from db import get_db_connection
+from backend.db import get_db_connection
 
 MASTER_REQUIRED_FIELDS = {
     "Supplier Registration Details": [

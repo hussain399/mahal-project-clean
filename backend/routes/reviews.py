@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from flask_cors import CORS
 import jwt
 from psycopg2.extras import RealDictCursor
-from db import get_db_connection
+from backend.db import get_db_connection
 from routes.auth_routes import JWT_SECRET
 
 reviews_bp = Blueprint("reviews_bp", __name__)

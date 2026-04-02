@@ -1,5 +1,5 @@
 # from flask import Blueprint, request, jsonify
-# from db import get_db_connection
+# from backend.db import get_db_connection
 # import base64
 
 # cart_bp = Blueprint("cart_bp", __name__)
@@ -207,7 +207,7 @@
 
 
 from flask import Blueprint, request, jsonify
-from db import get_db_connection
+from backend.db import get_db_connection
 from psycopg2.extras import RealDictCursor
 import base64
 import jwt

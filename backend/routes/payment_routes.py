@@ -1,5 +1,5 @@
 # from flask import Blueprint, request, jsonify
-# from db import get_db_connection
+# from backend.db import get_db_connection
 # from datetime import datetime
 # import uuid
 # from flask_cors import CORS
@@ -112,7 +112,7 @@
 # from flask import Blueprint, request, jsonify
 # from flask_cors import CORS
 # from psycopg2.extras import RealDictCursor
-# from db import get_db_connection
+# from backend.db import get_db_connection
 # from datetime import datetime
 # import uuid
 
@@ -225,7 +225,7 @@
 
 from flask import Blueprint, request, jsonify
 from psycopg2.extras import RealDictCursor
-from db import get_db_connection
+from backend.db import get_db_connection
 from datetime import datetime
 import uuid, jwt
 
