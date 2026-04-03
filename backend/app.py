@@ -197,6 +197,11 @@ def create_app():
     )
 
     @app.before_request
+    def request_started_log():
+        print("➡️ Request started")
+        return None
+
+    @app.before_request
     def handle_preflight():
         if request.method == "OPTIONS":
             return "", 200
