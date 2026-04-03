@@ -24,7 +24,7 @@ from backend.db import get_db_connection, release_db_connection
 from backend.app import mail
 from psycopg2.extras import RealDictCursor
 
-from services.inventory_alerts import (
+from backend.services.inventory_alerts import (
     send_low_stock_email,
     send_out_of_stock_email
 )
