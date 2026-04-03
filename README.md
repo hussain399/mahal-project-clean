@@ -9,7 +9,7 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Open your configured frontend host (for example, `http://<frontend-host>:3000`) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
@@ -68,3 +68,28 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+## Backend database environment (Azure Hybrid Connection)
+
+Required environment variables:
+
+```
+AZURE_DB_HOST=mahal-db
+AZURE_DB_PORT=5432
+AZURE_DB_NAME=MAHALDATABASE
+AZURE_DB_USER=postgres
+AZURE_DB_PASSWORD=Aparna18
+AZURE_DB_SSLMODE=disable
+```
+
+Optional fallback variables:
+
+```
+DB_HOST
+DB_PORT
+DB_NAME
+DB_USER
+DB_PASSWORD
+DB_SSLMODE
+```
